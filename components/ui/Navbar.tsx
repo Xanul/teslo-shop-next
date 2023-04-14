@@ -2,7 +2,6 @@ import NextLink from 'next/link';
 import { AppBar, Badge, Box, Button, IconButton, Link, Toolbar, Typography } from "@mui/material";
 import { SearchOutlined, ShoppingCartOutlined } from '@mui/icons-material'
 
-
 export const Navbar = () => {
   return (
     <AppBar>

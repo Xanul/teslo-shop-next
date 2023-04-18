@@ -2,6 +2,8 @@ import { Box, Button, Chip, Grid, Typography } from '@mui/material';
 import { ShopLayout } from '../../components/layout/ShopLayout';
 import { initialData } from '../../database/products';
 import { ProductSlideshow } from '../../components/products/ProductSlideshow';
+import { ItemCounter } from '../../components/ui/ItemCounter';
+
 
 
 const product = initialData.products[0];
@@ -12,7 +14,6 @@ const ProductPage = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={7}>
           <ProductSlideshow images={ product.images }/>
-
         </Grid>
         <Grid item xs={12} sm={5}>
           <Box display='flex' flexDirection='column'>
@@ -22,7 +23,7 @@ const ProductPage = () => {
             {/* Amount */}
             <Box sx={{my: 2}}>
               <Typography variant='subtitle2'>Amount</Typography>
-              {/* Item Counter */}
+              <ItemCounter />
             </Box>
             {/* Add to cart */}
             <Button color='secondary' className='circular-btn'>

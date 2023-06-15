@@ -11,7 +11,7 @@ const ProductPage = () => {
     <ShopLayout title={product.title} pageDescription={product.description}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={7}>
-          <ProductSlideshow images={ product.images }/>
+          <ProductSlideshow images={ product.images } />
         </Grid>
         <Grid item xs={12} sm={5}>
           <Box display='flex' flexDirection='column'>
@@ -22,10 +22,10 @@ const ProductPage = () => {
             <Box sx={{my: 2}}>
               <Typography variant='subtitle2'>Amount</Typography>
               <ItemCounter />
-              <SizeSelector selectedSize={product.sizes[1]} sizes={product.sizes} />
+              <SizeSelector selectedSize={product.sizes[0]} sizes={product.sizes} />
             </Box>
             {/* Add to cart */}
-            <Button color='secondary' className='circular-btn'>
+            <Button color='secondary' className='circular-btn' sx={{height: 40}}>
               Add to cart
             </Button>
 

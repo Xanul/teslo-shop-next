@@ -4,10 +4,6 @@ import { initialData } from '../../database/products';
 import { ProductSlideshow, SizeSelector } from '../../components/products';
 import { ItemCounter } from '../../components/ui/ItemCounter';
 
-
-
-
-
 const product = initialData.products[0];
 
 const ProductPage = () => {
@@ -35,6 +31,7 @@ const ProductPage = () => {
 
             {/* <Chip label="Not available" color='error' variant='outlined' /> */}
 
+            {/* Description */}
             <Box sx={{mt:2}}>
               <Typography variant='subtitle2'>Description</Typography>
               <Typography variant='body2'>{product.description}</Typography>

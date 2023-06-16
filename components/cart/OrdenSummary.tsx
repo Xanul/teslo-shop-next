@@ -1,0 +1,36 @@
+import { Divider, Grid, Typography } from "@mui/material"
+
+
+export const OrdenSummary = () => {
+  return (
+    <Grid container>
+      <Grid item xs={6}>
+        <Typography>No. Products</Typography>
+      </Grid>
+      <Grid item xs={6} display="flex" justifyContent="end">
+        <Typography>3 Items</Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography>Subtotal</Typography>
+      </Grid>
+      <Grid item xs={6} display="flex" justifyContent="end">
+        <Typography>{`$${155.36}`}</Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography>Tax</Typography>
+      </Grid>
+      <Grid item xs={6} display="flex" justifyContent="end">
+        <Typography>{`$${35.34}`}</Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Divider sx={{my: 1}}/>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography variant="subtitle1">Total</Typography>
+      </Grid>
+      <Grid item xs={6} display="flex" justifyContent="end">
+        <Typography variant="subtitle1">{`$${155.36}`}</Typography>
+      </Grid>
+    </Grid>
+  )
+}

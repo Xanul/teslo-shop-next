@@ -11,6 +11,8 @@ export interface IProduct {
   title: string;
   type: IType;
   gender: 'men'|'women'|'kid'|'unisex'
+
+  // TODO: Crear created at y modified at
 }
 
 export type ISize = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';

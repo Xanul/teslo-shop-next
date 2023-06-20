@@ -1,6 +1,6 @@
 import { AuthLayout } from "@/components/layout"
 import { Box, Grid, Typography, TextField, Button, Link } from "@mui/material"
-import NextLink from "next/link"
+import NextLink from 'next/link';
 
 const RegisterPage = () => {
   return (

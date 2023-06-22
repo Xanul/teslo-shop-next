@@ -7,7 +7,6 @@ import useSWR, {SWRConfiguration} from 'swr';
 export const useProducts = (url: string, config: SWRConfiguration = {}) => {
 
   // const { data, error, isLoading } = useSWR<IProduct[]>(`/api${url}`, fetcher, config);
-  console.log(config);
   const { data, error, isLoading } = useSWR<IProduct[]>(`/api${url}`, config);
 
 

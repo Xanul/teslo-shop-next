@@ -1,12 +1,21 @@
 import { Box, Button, Chip, Grid, Typography } from '@mui/material';
 import { ShopLayout } from '../../components/layout/ShopLayout';
-import { initialData } from '../../database/products';
 import { ProductSlideshow, SizeSelector } from '../../components/products';
 import { ItemCounter } from '../../components/ui/ItemCounter';
+import { IProduct } from '@/interfaces';
+import { FC } from 'react';
+import { GetServerSideProps } from 'next';
+import { dbProducts } from '@/database';
 
-const product = initialData.products[0];
+interface Props {
+  product: IProduct
+}
 
-const ProductPage = () => {
+const ProductPage:FC<Props> = ({product}) => {
+
+  // const router = useRouter();
+  // const { products: product, isLoading } = useProducts(`/products/${router.query.slug}`);
+
   return (
     <ShopLayout title={product.title} pageDescription={product.description}>
       <Grid container spacing={3}>
@@ -42,6 +51,31 @@ const ProductPage = () => {
       </Grid>
     </ShopLayout>
   )
+}
+
+// getServerSideProps
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
+  console.log(params)
+
+  const { slug } = params as {slug: string};
+
+  const product = await dbProducts.getProductBySlug(slug);
+
+  if (!product) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {
+      product
+    }
+  }
+
 }
 
 export default ProductPage

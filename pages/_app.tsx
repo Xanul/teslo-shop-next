@@ -2,8 +2,8 @@ import '@/styles/globals.css'
 import { ThemeProvider, CssBaseline } from '@mui/material'
 import type { AppProps } from 'next/app'
 import { lightTheme } from '../themes';
-import { SWRConfig } from 'swr';
 import { UiProvider } from '@/context';
+import { SWRConfig } from 'swr';
 
 
 

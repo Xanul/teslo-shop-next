@@ -4,7 +4,7 @@ import { ProductSlideshow, SizeSelector } from '../../components/products';
 import { ItemCounter } from '../../components/ui/ItemCounter';
 import { IProduct } from '@/interfaces';
 import { FC } from 'react';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { dbProducts } from '@/database';
 
 interface Props {
@@ -53,15 +53,28 @@ const ProductPage:FC<Props> = ({product}) => {
   )
 }
 
-// getServerSideProps
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
-  console.log(params)
+export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
-  const { slug } = params as {slug: string};
+  const allSlugs = await dbProducts.getAllProductsSlugs();
 
-  const product = await dbProducts.getProductBySlug(slug);
+  return {
+    paths: allSlugs.map((slug) => {
+      return {
+        params: slug
+      }
+    }),
+    fallback: "blocking"
+  }
+}
 
-  if (!product) {
+
+export const getStaticProps: GetStaticProps = async ({params}) => {
+  
+  const {slug = ''} = params as { slug: string };
+
+  const productBySlug = await dbProducts.getProductBySlug(slug);
+
+  if (!productBySlug) {
     return {
       redirect: {
         destination: '/',
@@ -72,10 +85,36 @@ export const getServerSideProps: GetServerSideProps = async ({params}) => {
 
   return {
     props: {
-      product
-    }
+      product: productBySlug
+    },
+    revalidate: 86400
   }
 
 }
+
+// getServerSideProps
+// export const getServerSideProps: GetServerSideProps = async ({params}) => {
+//   console.log(params)
+
+//   const { slug } = params as {slug: string};
+
+//   const product = await dbProducts.getProductBySlug(slug);
+
+//   if (!product) {
+//     return {
+//       redirect: {
+//         destination: '/',
+//         permanent: false
+//       }
+//     }
+//   }
+
+//   return {
+//     props: {
+//       product
+//     }
+//   }
+
+// }
 
 export default ProductPage

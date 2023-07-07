@@ -47,6 +47,14 @@ export const SideMenu = () => {
 
   }
 
+  const inputRef = (input: any) => {
+    if (input) {
+      setTimeout(() => {
+        {input.focus()}
+      }, 100);
+    }
+  }
+
   return (
     <Drawer
       open={isMenuOpen}
@@ -57,6 +65,7 @@ export const SideMenu = () => {
         <List>
           <ListItem>
             <Input
+              inputRef={inputRef}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' ? onSearchTerm() : null}

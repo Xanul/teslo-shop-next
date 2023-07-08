@@ -34,10 +34,17 @@ const ProductPage:FC<Props> = ({product}) => {
               <SizeSelector selectedSize={product.sizes[0]} sizes={product.sizes} />
             </Box>
             {/* Add to cart */}
-            <Button color='secondary' className='circular-btn' sx={{height: 40}}>
-              Add to cart
-            </Button>
-
+            {
+              product.inStock > 0
+                ? (
+                  <Button color='secondary' className='circular-btn' sx={{height: 40}}>
+                    Add to cart
+                  </Button>
+                )
+                : (
+                  <Chip color="error" label="Out of stock" variant='outlined'/>
+                )
+            }
             {/* <Chip label="Not available" color='error' variant='outlined' /> */}
 
             {/* Description */}

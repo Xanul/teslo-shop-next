@@ -6,6 +6,7 @@ import {
   Box,
   Typography,
   Link,
+  Chip,
 } from "@mui/material";
 import NextLink from "next/link";
 import { FC, useMemo, useState } from "react";
@@ -16,6 +17,7 @@ interface Props {
 }
 
 export const ProductCard: FC<Props> = ({ product }) => {
+  
   const [isHovered, setIsHovered] = useState(false);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
@@ -36,6 +38,17 @@ export const ProductCard: FC<Props> = ({ product }) => {
         <NextLink legacyBehavior href={`/product/${product.slug}`} passHref prefetch={false}>
           <Link>
             <CardActionArea>
+              <Chip 
+                color="primary"
+                label="Out of stock"
+                sx={{
+                  position: 'absolute', 
+                  zIndex: 99, 
+                  top: 10, 
+                  left: 10,
+                  display: product.inStock > 0 ? "none" : "flex"
+                }}
+              />
               <CardMedia
                 component="img"
                 className="fadeIn"

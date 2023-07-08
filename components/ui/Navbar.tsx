@@ -84,6 +84,7 @@ export const Navbar = () => {
             )
             : (
               <IconButton
+                sx={{display: {xs: 'none', sm: 'flex'}}}
                 onClick={() => setIsSearchVisible(true)}
                 className='fadeIn'
               >

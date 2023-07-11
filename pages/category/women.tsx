@@ -7,8 +7,6 @@ import { Typography } from '@mui/material'
 const WomenPage = () => {
 
   const {products, isError, isLoading} = useProducts('/products/?gender=women');
-  
-  console.log(products);
 
   return (
     <ShopLayout title='Teslo-Shop - Women Clothes' pageDescription='Women category'>

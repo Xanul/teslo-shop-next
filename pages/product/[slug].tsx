@@ -3,9 +3,11 @@ import { ShopLayout } from '../../components/layout/ShopLayout';
 import { ProductSlideshow, SizeSelector } from '../../components/products';
 import { ItemCounter } from '../../components/ui/ItemCounter';
 import { ICartProduct, IProduct, ISize } from '@/interfaces';
-import { FC, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { dbProducts } from '@/database';
+import { useRouter } from 'next/router';
+import { CartContext } from '@/context';
 
 interface Props {
   product: IProduct
@@ -13,9 +15,10 @@ interface Props {
 
 const ProductPage:FC<Props> = ({product}) => {
 
-  // const router = useRouter();
+  const router = useRouter();
   // const { products: product, isLoading } = useProducts(`/products/${router.query.slug}`);
- 
+  const {cart, addProductToCart} = useContext(CartContext);
+  console.log(cart)
   const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
     _id: product._id,
     image: product.images[0],
@@ -24,7 +27,7 @@ const ProductPage:FC<Props> = ({product}) => {
     slug: product.slug,
     title: product.title,
     gender: product.gender,
-    quantity: 2,
+    quantity: 1,
   })
 
   const selectSize = (size: ISize) => {
@@ -35,7 +38,13 @@ const ProductPage:FC<Props> = ({product}) => {
   }
 
   const onAddProduct = () => {
-    console.log({tempCartProduct});
+    if (!tempCartProduct.size) return
+
+    // TODO: llamar a la accion del context para agregar al carrito
+    console.log(tempCartProduct);
+    addProductToCart(tempCartProduct)
+
+    // router.push('/cart');
   }
 
   const updatedQuantity = (quantity: number) => {
@@ -78,6 +87,7 @@ const ProductPage:FC<Props> = ({product}) => {
                     color='secondary' 
                     className='circular-btn' 
                     sx={{height: 40}}
+                    variant={tempCartProduct.size ? "contained" : "outlined"}
                     onClick={onAddProduct}
                   >
                     {

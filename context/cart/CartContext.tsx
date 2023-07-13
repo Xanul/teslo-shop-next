@@ -3,6 +3,8 @@ import { createContext, useContext } from "react";
 
 interface ContextProps {
   cart: ICartProduct[];
+  // Methods
+  addProductToCart: (product: ICartProduct) => void
 }
 
 

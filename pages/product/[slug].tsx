@@ -24,7 +24,7 @@ const ProductPage:FC<Props> = ({product}) => {
     slug: product.slug,
     title: product.title,
     gender: product.gender,
-    quantity: 1,
+    quantity: 2,
   })
 
   const selectSize = (size: ISize) => {
@@ -62,7 +62,7 @@ const ProductPage:FC<Props> = ({product}) => {
               <ItemCounter 
                 currentValue={tempCartProduct.quantity}
                 onUpdateQuantity={updatedQuantity}
-                maxValue={product.inStock}
+                maxValue={product.inStock > 5 ? 5 : product.inStock}
               />
               <SizeSelector  
                 sizes={product.sizes} 

@@ -9,38 +9,36 @@ interface Props {
 }
 
 export const ItemCounter:FC<Props> = ({currentValue, maxValue, onUpdateQuantity}) => {
+
+  const addOrRemove = (value: number) => {
+    
+    switch (value) {
+      case -1:
+        if (currentValue > 1) onUpdateQuantity(currentValue - 1)
+        break;
+      case +1:
+        if (currentValue < maxValue) onUpdateQuantity(currentValue + 1)
+        break
+      default:
+        break;
+    }
+
+  }
   
-  const [quantity, setQuantity] = useState(currentValue);
-
-  const onAddQuantity = () => {
-    (quantity < maxValue)
-      ? setQuantity(quantity + 1)
-      : console.log('Maximo valor alcanzado')
-  }
-
-  const onMinusQuantity = () => {
-    (quantity > 1)
-      ? setQuantity(quantity - 1)
-      : console.log('No se puede reducir de 1')
-  }
-
-
 
   return (
     <Box display='flex' alignItems='center'>
       <IconButton
         onClick={() => {
-          onMinusQuantity()
-          onUpdateQuantity(quantity)
+          addOrRemove(-1)
         }}
       >
         <RemoveCircleOutlineOutlined />
       </IconButton>
-      <Typography sx={{width: 40, textAlign: 'center'}}>{quantity}</Typography>
+      <Typography sx={{width: 40, textAlign: 'center'}}>{currentValue}</Typography>
       <IconButton
         onClick={() => {
-          onAddQuantity()
-          onUpdateQuantity(quantity)
+          addOrRemove(+1)
         }}
       >
         <AddCircleOutlineOutlined />

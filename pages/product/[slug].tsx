@@ -18,7 +18,7 @@ const ProductPage:FC<Props> = ({product}) => {
   const router = useRouter();
   // const { products: product, isLoading } = useProducts(`/products/${router.query.slug}`);
   const {cart, addProductToCart} = useContext(CartContext);
-  console.log(cart)
+  
   const [tempCartProduct, setTempCartProduct] = useState<ICartProduct>({
     _id: product._id,
     image: product.images[0],
@@ -39,12 +39,10 @@ const ProductPage:FC<Props> = ({product}) => {
 
   const onAddProduct = () => {
     if (!tempCartProduct.size) return
-
-    // TODO: llamar a la accion del context para agregar al carrito
-    console.log(tempCartProduct);
+  
     addProductToCart(tempCartProduct)
 
-    // router.push('/cart');
+    router.push('/cart');
   }
 
   const updatedQuantity = (quantity: number) => {

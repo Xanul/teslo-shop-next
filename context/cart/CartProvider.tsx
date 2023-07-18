@@ -29,6 +29,26 @@ export const CartProvider:FC<PropsWithChildren> = ({ children }) => {
     Cookie.set('cart', JSON.stringify( state.cart ));
   }, [state.cart]);
 
+  useEffect(() => {
+    
+    const numberOfItems = state.cart.reduce((acc, current) => acc + current.quantity,0)
+    const subTotal = state.cart.reduce((acc, current) => acc + current.price * current.quantity, 0)
+    const tax = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0);
+    const taxRate = subTotal * tax;
+    const total = subTotal + taxRate
+
+    const orderSummary = {
+      numberOfItems,
+      subTotal,
+      taxRate,
+      total
+    }
+
+    console.log(orderSummary);
+
+  }, [state.cart]);
+
+
 
   
 
@@ -55,6 +75,10 @@ export const CartProvider:FC<PropsWithChildren> = ({ children }) => {
 
   }
 
+  const removeCartProduct = ( product: ICartProduct ) => {
+    dispatch({type: 'CART - Remove product in cart', payload: product})
+  }
+
   const updateCartQuantity = ( product: ICartProduct ) => {
     dispatch({type: 'CART - Change product quantity', payload: product})
   }
@@ -65,7 +89,8 @@ export const CartProvider:FC<PropsWithChildren> = ({ children }) => {
 
       // Methods
       addProductToCart,
-      updateCartQuantity
+      updateCartQuantity,
+      removeCartProduct
     }}>
       { children }
     </CartContext.Provider>

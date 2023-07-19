@@ -5,10 +5,18 @@ import Cookie from 'js-cookie';
 
 export interface CartState {
   cart: ICartProduct[];
+  numberOfItems: number;
+  subTotal: number;
+  taxRate: number;
+  total: number;
 }
 
 const CART_INITIAL_STATE: CartState = {
-  cart: []
+  cart: [],
+  numberOfItems: 0,
+  subTotal: 0,
+  taxRate: 0,
+  total: 0,
 }
 
 export const CartProvider:FC<PropsWithChildren> = ({ children }) => {
@@ -44,13 +52,10 @@ export const CartProvider:FC<PropsWithChildren> = ({ children }) => {
       total
     }
 
-    console.log(orderSummary);
+    dispatch({type: 'CART - Update order summary', payload: orderSummary})
+    
 
   }, [state.cart]);
-
-
-
-  
 
   const addProductToCart = (product: ICartProduct) => {
 

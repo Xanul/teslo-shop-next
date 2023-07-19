@@ -3,8 +3,14 @@ import { ShopLayout } from "@/components/layout";
 import { Button, Card, CardContent, Divider, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { OrdenSummary } from '../../components/cart/OrdenSummary';
+import { useRouter } from "next/router";
+
+
 
 const CartPage = () => {
+
+  const router = useRouter();
+
   return (
     <ShopLayout title="Cart - 3" pageDescription="Shopping cart from teslo">
       <Typography variant="h1" component="h1">Cart</Typography>
@@ -19,7 +25,12 @@ const CartPage = () => {
               <Divider sx={{my:1}}/>
               <OrdenSummary />
               <Box sx={{mt:3}}> 
-                <Button color="secondary" className="circular-btn" fullWidth sx={{height: 40}}>
+                <Button 
+                  color="secondary" 
+                  className="circular-btn" 
+                  fullWidth sx={{height: 40}}
+                  onClick={ () => router.push('/checkout/summary') }
+                >
                   Checkout
                 </Button>
               </Box>

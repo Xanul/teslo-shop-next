@@ -1,4 +1,3 @@
-import { initialData } from "@/database/products"
 import { Delete } from "@mui/icons-material";
 import { CardActionArea, CardMedia, Grid, Link, Typography, Box, Button, Divider } from "@mui/material"
 import NextLink from 'next/link';

@@ -1,11 +1,12 @@
 import { AuthLayout } from '@/components/layout'
-import { Button, Grid, Link, TextField, Typography } from '@mui/material'
+import { Button, Chip, Grid, Link, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
-import React from 'react'
+import React, { useState } from 'react'
 import NextLink from 'next/link';
 import { useForm } from 'react-hook-form';
 import { validations } from '@/utils';
 import { tesloApi } from '@/api';
+import { ErrorOutline } from '@mui/icons-material';
 
 const LoginPage = () => {
 
@@ -15,8 +16,11 @@ const LoginPage = () => {
   }
 
   const { register, handleSubmit, formState: { errors }} = useForm<formData>()
+  const [showError, setShowError] = useState(false);
 
   const onLoginUser = async ( {email, password}: formData ) => {
+
+    setShowError(false);
 
     try {
       
@@ -25,6 +29,11 @@ const LoginPage = () => {
 
     } catch (error) {
       console.log('Error in credentials')
+      setShowError(true);
+
+      setTimeout(() => {
+        setShowError(false)
+      }, 5000);
     }
 
   }
@@ -36,6 +45,13 @@ const LoginPage = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant='h1' component='h1'>Login</Typography>
+              <Chip
+                label='Invalid username or password'
+                color='error'
+                icon={<ErrorOutline />}
+                className='fadeIn'
+                sx={{mt: 1, display: showError ? 'flex' : 'none'}}
+              />
             </Grid>
             <Grid item xs={12}>
               <TextField 
@@ -74,6 +90,7 @@ const LoginPage = () => {
                 size='large'
                 type='submit' 
                 fullWidth
+                disabled={showError}
               > 
               Login</Button>
             </Grid>

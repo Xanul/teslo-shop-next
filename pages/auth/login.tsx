@@ -4,6 +4,8 @@ import { Box } from '@mui/system'
 import React from 'react'
 import NextLink from 'next/link';
 import { useForm } from 'react-hook-form';
+import { validations } from '@/utils';
+import { tesloApi } from '@/api';
 
 const LoginPage = () => {
 
@@ -14,15 +16,22 @@ const LoginPage = () => {
 
   const { register, handleSubmit, formState: { errors }} = useForm<formData>()
 
-  const onLoginUser = ( data: formData ) => {
+  const onLoginUser = async ( {email, password}: formData ) => {
 
-    console.log({data});
+    try {
+      
+      const { data } = await tesloApi.post('/user/login', {email, password});
+      console.log(data)
+
+    } catch (error) {
+      console.log('Error in credentials')
+    }
 
   }
 
   return (
     <AuthLayout title={'Login'}>
-      <form onSubmit={ handleSubmit(onLoginUser) }>
+      <form onSubmit={ handleSubmit(onLoginUser) } noValidate >
         <Box sx={{width: 350, padding:'10px 20px'}}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -34,7 +43,14 @@ const LoginPage = () => {
                 variant='filled' 
                 fullWidth
                 type='email'
-                { ...register('email') }
+                { 
+                  ...register('email', {
+                    required: 'This field is necessary',
+                    validate: validations.isEmail
+                  }) 
+                }
+                error={ !!errors.email }
+                helperText={ errors.email?.message }
               />
             </Grid>
             <Grid item xs={12}>
@@ -43,7 +59,12 @@ const LoginPage = () => {
                 variant='filled' 
                 type='password' 
                 fullWidth
-                { ...register('password') }
+                { ...register('password', {
+                  required: 'This field is necessary',
+                  minLength: { value: 6, message: 'Min 6 characters' }
+                })}
+                error={ !!errors.password }
+                helperText={ errors.password?.message }
               />
             </Grid>
             <Grid item xs={12}>

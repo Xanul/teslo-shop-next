@@ -33,7 +33,7 @@ const LoginPage = () => {
 
       setTimeout(() => {
         setShowError(false)
-      }, 5000);
+      }, 3000);
     }
 
   }

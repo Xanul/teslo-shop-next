@@ -28,6 +28,10 @@ export const AuthProvider:FC<PropsWithChildren> = ({ children }) => {
 
   const checkToken = async () => {
     
+    if (!Cookies.get('token')){
+      return;
+    }
+
     try {
       
       const { data } = await tesloApi.get('/user/validate-token');
@@ -39,12 +43,6 @@ export const AuthProvider:FC<PropsWithChildren> = ({ children }) => {
       console.log(error);
       Cookies.remove('token');
     }
-
-    // Llamar al endpoint
-    // Revalidar token guardando el nuevo
-    // dispatch login
-    // Si algo sale mal, borrar el token de las cookies
-
   }
 
   const loginUser = async ( email:string, password:string ):Promise<boolean> => {

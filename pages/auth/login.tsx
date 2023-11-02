@@ -36,9 +36,13 @@ const LoginPage = () => {
       return;
     }
 
-    router.replace('/');
+    const destination = router.query.p?.toString() || '/';
+
+    router.replace(destination);
 
   }
+
+  
 
   return (
     <AuthLayout title={'Login'}>
@@ -97,9 +101,20 @@ const LoginPage = () => {
               Login</Button>
             </Grid>
             <Grid item xs={12}>
-              <NextLink href='/auth/register' passHref legacyBehavior>
+              <NextLink 
+                href={router.query.p ? `/auth/register?p=${router.query.p}` : '/auth/register'} 
+                passHref 
+                legacyBehavior
+              >
                 <Link>
-                  <Button color='secondary' className='circular-btn' variant='outlined' size='large' fullWidth>Create an account</Button>
+                  <Button 
+                    color='secondary' 
+                    className='circular-btn' 
+                    variant='outlined' 
+                    size='large' 
+                    fullWidth
+                  >
+                    Create an account</Button>
                 </Link>
               </NextLink>
             </Grid>
